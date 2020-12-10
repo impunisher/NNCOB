@@ -1,0 +1,11 @@
+version: '2'
+services:
+  cobranca-postgresql:
+    image: postgres:12.1
+    # volumes:
+    #     - ~/volumes/cobranca/postgresql/:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=cobranca
+      - POSTGRES_PASSWORD=cobranca
+    ports:
+      - 5432:5432
