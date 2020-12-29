@@ -1,6 +1,6 @@
-package br.com.elyontec.cobrancaapi.service.impl;
+package br.com.elyontec.cobranca.api.service.impl;
 
-import br.com.elyontec.cobrancaapi.service.IClienteService;
+import br.com.elyontec.cobranca.api.service.IClienteService;
 import br.com.elyontec.integracaosicoobclient.dto.Cliente;
 import br.com.elyontec.integracaosicoobclient.integracao.IntegracaoSicoob;
 import org.springframework.beans.factory.annotation.Autowired;

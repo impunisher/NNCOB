@@ -1,6 +1,6 @@
-package br.com.elyontec.cobrancaapi.resource;
+package br.com.elyontec.cobranca.api.resource;
 
-import br.com.elyontec.cobrancaapi.service.IClienteService;
+import br.com.elyontec.cobranca.api.service.IClienteService;
 import br.com.elyontec.integracaosicoobclient.dto.Cliente;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -1,1 +1,20 @@
-<p>importar-divida works!</p>
+
+<input type="file" accept=".csv" (change)="lerArquivo($event)">
+
+<span *ngIf="carregando">Carregando...</span>
+
+<br>
+
+<table>
+  <thead>
+    <tr *ngFor="let rows of csvHeaders"> 
+        <th *ngFor="let row of rows">{{row}}</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let rows of csvRecords">
+      <td *ngFor="let row of rows">{{row}}</td>
+    </tr>
+  </tbody>
+</table>
