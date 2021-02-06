@@ -1,0 +1,67 @@
+<form [formGroup]="form">
+  <p>Use o formulário para alterar a senha</p>
+
+  <div fxLayout="row">
+
+    <div fxFlex="40%" fxFlex.md="60%" fxFlex.sm="50%" fxFlex.xs="100%">
+
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Senha Atual" formControlName="currentPassword" [type]="hideCurrentPassword ? 'password' : 'text'"
+          autocomplete="current-password">
+        <mat-icon matSuffix (click)="hideCurrentPassword = !hideCurrentPassword">
+          {{hideCurrentPassword ? 'visibility' : 'visibility_off'}}
+        </mat-icon>
+
+        <mat-error *ngIf="form.controls['currentPassword'].hasError('required')">
+          Porf favor, entre com sua senha atual
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Nova Senha" formControlName="novaSenha" [type]="hidenovaSenha ? 'password' : 'text'" autocomplete="nova-senha">
+        <mat-icon matSuffix (click)="hidenovaSenha = !hidenovaSenha">
+          {{hidenovaSenha ? 'visibility' : 'visibility_off'}}
+        </mat-icon>
+
+        <mat-error *ngIf="form.controls['novaSenha'].hasError('required')">
+          Porf favor, entre com sua nova senha
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <input matInput placeholder="Confirme a nova Senha" formControlName="novaSenhaConfirm" [type]="hidenovaSenha ? 'password' : 'text'"
+          autocomplete="nova-senha">
+        <mat-icon matSuffix (click)="hidenovaSenha = !hidenovaSenha">
+          {{hidenovaSenha ? 'visibility' : 'visibility_off'}}
+        </mat-icon>
+
+        <mat-error *ngIf="form.controls['novaSenhaConfirm'].hasError('required')">
+          Porf favor, confirme nova senha
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <button mat-raised-button color="primary" [disabled]="form.invalid || disableSubmit" (click)="changePassword()">Salvar</button>
+
+</form>
+
+<!-- <div class="password-rules" fxFlex="65%" fxFlex.sm="90%" fxFlex.xs="95%">-->
+<!--    Password rules:-->
+<!--    <mat-list>-->
+<!--      <mat-list-item>-->
+<!--        Must be at least 6 characters-->
+<!--      </mat-list-item>-->
+
+<!--      <mat-list-item>-->
+<!--        Must contain at least one non alphanumeric character-->
+<!--      </mat-list-item>-->
+
+<!--      <mat-list-item>-->
+<!--        Must contain at least one lowercase ('a'-'z')-->
+<!--      </mat-list-item>-->
+
+<!--      <mat-list-item>-->
+<!--        Must contain at least one uppercase ('A'-'Z')-->
+<!--      </mat-list-item>-->
+<!--    </mat-list>-->
+<!--  </div> -->

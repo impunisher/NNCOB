@@ -1,0 +1,144 @@
+<div class="navbar-container" [class.example-is-mobile]="mobileQuery.matches">
+
+  <!-- Top navbar -->
+
+  <mat-toolbar class="navbar" color="primary">
+    <div>
+    <img   style="margin-left: 190px;">
+    </div>
+
+
+    <button mat-icon-button (click)="snav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <a class="navbar-brand" [routerLink]="['/']" matTooltip="Inicio">
+      <h1>
+        Cobrança
+      </h1>
+    </a>
+
+    <span class="navbar-spacer"></span>
+
+    <button mat-icon-button [matMenuTriggerFor]="notificationMenu">
+      <mat-icon matBadge="2" matBadgeColor="accent">notifications</mat-icon>
+    </button>
+    <mat-menu #notificationMenu="matMenu" xPosition="before" yPosition="above" [overlapTrigger]="false">
+
+      <a mat-menu-item>
+        <span>Existem novas atualizações</span>
+      </a>
+      <a mat-menu-item>
+        <span>Existe uma nova mensagem</span>
+      </a>
+
+    </mat-menu>
+
+
+
+    <button mat-button [matMenuTriggerFor]="userMenu">
+      <mat-icon>person</mat-icon>
+      <span fxShow fxHide.xs>
+        {{userName}}
+      </span>
+    </button>
+    <mat-menu #userMenu="matMenu" xPosition="before" yPosition="above" [overlapTrigger]="false">
+
+      <a mat-menu-item [routerLink]="['/conta/perfil']">
+        <mat-icon>person</mat-icon>
+        <span>Conta</span>
+      </a>
+
+      <a mat-menu-item [routerLink]="['/auth/login']">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Sair</span>
+      </a>
+
+    </mat-menu>
+
+  </mat-toolbar>
+
+  <mat-sidenav-container class="navbar-sidenav-container">
+
+    <!-- Side nav -->
+    <mat-sidenav #snav [opened]="!mobileQuery.matches" [mode]="mobileQuery.matches ? 'over' : 'side'"
+      [fixedInViewport]="mobileQuery.matches" fixedTopGap="56" class="sidenav">
+      <mat-card class="profile-card">
+        <img [src]="foto">
+        <mat-card-header>
+          <mat-card-title class="profile-card">{{userName}}</mat-card-title>
+          <mat-card-subtitle class="profile-card">Usuário</mat-card-subtitle>
+        </mat-card-header>
+      </mat-card>
+      <mat-nav-list>
+        <a mat-list-item [routerLink]="['/inicio']" routerLinkActive="active">
+          <mat-icon mat-list-icon>
+            home
+          </mat-icon>
+          <p mat-line> Inicio </p>
+        </a>
+        <mat-nav-list>
+          <mat-list-item (click)="showSubmenu = !showSubmenu">
+            <span  *ngIf="isExpanded ||
+                isShowing">Dividas</span>
+            <mat-icon mat-list-icon>account_balance</mat-icon>
+            <mat-icon class="menu-button" [ngClass]="{'rotated' :
+              showSubmenu}" *ngIf="isExpanded ||
+                 isShowing" routerLinkActive="active">expand_more</mat-icon>
+          </mat-list-item>
+          <div *ngIf="showSubmenu">
+            <a mat-list-item [routerLink]="['/dividas']" routerLinkActive="active">
+              <mat-icon mat-list-icon>
+                file_upload
+              </mat-icon>
+              <p mat-line> Importar Dividas </p>
+            </a>
+            <a mat-list-item [routerLink]="['/dividas/visualizar']" routerLinkActive="active">
+              <mat-icon mat-list-icon>
+                import_contacts
+              </mat-icon>
+              <p mat-line> Listar Dividas </p>
+            </a>
+          </div>
+
+        </mat-nav-list>
+        <a mat-list-item [routerLink]="['/ligacoes']" routerLinkActive="active">
+          <mat-icon mat-list-icon>
+            phone
+          </mat-icon>
+          <p mat-line> Ligar </p>
+        </a>
+
+        <a mat-list-item [routerLink]="['/conta/perfil']">
+          <mat-icon mat-list-icon>person</mat-icon>
+          <p mat-line> Conta </p>
+        </a>
+
+        <a mat-list-item [routerLink]="['/auth/login']">
+          <mat-icon mat-list-icon>exit_to_app</mat-icon>
+          <p mat-line> Sair </p>
+        </a>
+
+        <mat-divider></mat-divider>
+
+      </mat-nav-list>
+
+    </mat-sidenav>
+
+    <!-- Main content -->
+    <mat-sidenav-content class="sidenav-content">
+      <div class="progress-bar-container">
+        <mat-progress-bar color="accent" mode="indeterminate" *ngIf="spinnerService.visibility | async">
+        </mat-progress-bar>
+         <mat-spinner class="spinner" [diameter]="50" *ngIf="showSpinner"></mat-spinner>
+      </div>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  <mat-toolbar class="navbar" color="primary" fxLayoutAlign="center center" fxLayoutAlign.gt-xs="center">
+    <div class="navbar-brand">
+      <p>Elyon Tecnologia - Todos os direitos reservados</p>
+    </div>
+  </mat-toolbar>
+</div>
+
+
