@@ -1,3 +1,4 @@
+import { DividasService } from './../dividas.service';
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatSort} from '@angular/material/sort';
 import {NGXLogger} from 'ngx-logger';
@@ -26,38 +27,24 @@ export class VisualizarDividaComponent implements OnInit {
     private logger: NGXLogger,
     private NotificacaoService: NotificacaoService,
     private titleService: Title,
-    private ngxCsvParser: NgxCsvParser
+    private ngxCsvParser: NgxCsvParser,
+    private dividasService: DividasService
   ) { }
 
   ngOnInit() {
-    this.titleService.setTitle('Cobrança - Importar Dívida');
+    this.titleService.setTitle('Cobrança - Visulizar dividas');
     this.logger.log('Dividas loaded');
-
+    this.buscarDividas();
   }
 
-  lerArquivo(event: any) {
-    this.carregando = true;
-    const files = event.srcElement.files;
+  dividas = [];
 
-    // Parse the file you want to select for the operation along with the configuration
-    this.ngxCsvParser.parse(files[0], { header: this.header, delimiter: ',' })
-        .pipe().subscribe((result: any) => {
-      let primeiroItem: boolean = true;
-      result.forEach((element: any) => {
-        const row: string = element[0];
-        if(primeiroItem) {
-          this.csvHeaders.push(row.split(';'));
-          primeiroItem = false;
-        } else {
-          this.csvRecords.push(row.split(';'));
-          console.log(this.csvRecords);
-        }
-      });
-      this.carregando = false;
-    }, (error: NgxCSVParserError) => {
-      this.carregando = false;
-      console.log('Error', error);
-    });
-
+  buscarDividas(){
+    this.dividasService.buscarDividas().subscribe(dividasConsulta => {
+      debugger;
+      this.dividas = dividasConsulta;
+    })
   }
+
+  
 }
