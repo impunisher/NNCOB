@@ -1,8 +1,7 @@
-package br.com.elyontec.cobranca.api.repository;
+package br.com.elyontec.cobranca.repository;
 
-import br.com.elyontec.cobranca.api.entity.Divida;
+import br.com.elyontec.cobranca.entity.Divida;
 import org.springframework.data.repository.CrudRepository;
 
 public interface DividaRepository extends CrudRepository<Divida, Long> {
-
 }

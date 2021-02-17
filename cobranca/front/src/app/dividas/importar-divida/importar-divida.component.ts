@@ -1,3 +1,5 @@
+import { Subscription } from 'rxjs';
+import { DividasService } from './../dividas.service';
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatSort} from '@angular/material/sort';
 import {NGXLogger} from 'ngx-logger';
@@ -26,7 +28,8 @@ export class ImportarDividaComponent implements OnInit {
     private logger: NGXLogger,
     private NotificacaoService: NotificacaoService,
     private titleService: Title,
-    private ngxCsvParser: NgxCsvParser
+    private ngxCsvParser: NgxCsvParser,
+    private dividasService: DividasService
   ) { }
 
   ngOnInit() {
@@ -38,26 +41,6 @@ export class ImportarDividaComponent implements OnInit {
   lerArquivo(event: any) {
     this.carregando = true;
     const files = event.srcElement.files;
-
-    // Parse the file you want to select for the operation along with the configuration
-    this.ngxCsvParser.parse(files[0], { header: this.header, delimiter: ',' })
-        .pipe().subscribe((result: any) => {
-      let primeiroItem: boolean = true;
-      result.forEach((element: any) => {
-        const row: string = element[0];
-        if(primeiroItem) {
-          this.csvHeaders.push(row.split(';'));
-          primeiroItem = false;
-        } else {
-          this.csvRecords.push(row.split(';'));
-          console.log(this.csvRecords);
-        }
-      });
-      this.carregando = false;
-    }, (error: NgxCSVParserError) => {
-      this.carregando = false;
-      console.log('Error', error);
-    });
-
+    this.dividasService.importarDados(files).subscribe(response => console.log('Upload concluído'));
   }
 }

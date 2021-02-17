@@ -1,4 +1,4 @@
-package br.com.elyontec.cobranca.api;
+package br.com.elyontec.cobranca;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
