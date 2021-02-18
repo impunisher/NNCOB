@@ -6,7 +6,7 @@ import {NGXLogger} from 'ngx-logger';
 import {Title} from '@angular/platform-browser';
 
 import {NotificacaoService} from '../../core/services/notificacao.service';
-import {NgxCsvParser, NgxCSVParserError} from 'ngx-csv-parser';
+import {NgxCsvParser} from 'ngx-csv-parser';
 
 @Component({
   selector: 'app-importar-divida',
