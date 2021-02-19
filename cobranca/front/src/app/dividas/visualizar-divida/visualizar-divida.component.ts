@@ -17,11 +17,13 @@ export class VisualizarDividaComponent implements OnInit {
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  csvRecords: any[] = [];
-  csvHeaders: any[] = [];
   carregando: boolean = false;
 
   header = false;
+
+  displayedColumns: string[] = ['nome','CPF'];
+  dividas = [];
+  paginator = {length: 0, pageSize:20, page: 0, pageSizeOptions:[20,50,10]};
 
   constructor(
     private logger: NGXLogger,
@@ -34,17 +36,13 @@ export class VisualizarDividaComponent implements OnInit {
   ngOnInit() {
     this.titleService.setTitle('Cobrança - Visulizar dividas');
     this.logger.log('Dividas loaded');
-    this.buscarDividas();
-  }
-
-  dividas = [];
-
-  buscarDividas(){
-    this.dividasService.buscarDividas().subscribe(dividasConsulta => {
-      debugger;
-      this.dividas = dividasConsulta;
+    this.dividasService.buscarDividas(this.paginator).subscribe(retorno => {
+      debugger
+      this.dividas = retorno.content;
+      this.paginator.length = retorno.totalElements;
+      this.paginator.pageSize = retorno.numberOfElements;
+      this.paginator.page = retorno.number;
     })
   }
-
   
 }

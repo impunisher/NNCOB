@@ -6,6 +6,8 @@ import br.com.elyontec.cobranca.service.IDividaService;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,8 +30,8 @@ public class DividaService implements IDividaService {
 
 
     @Override
-    public List<Divida> todasDividas() {
-        return (List<Divida>) dividaRepository.findAll();
+    public Page<Divida> todasDividas(Pageable pageable) {
+        return dividaRepository.findAll(pageable);
     }
 
     @Override

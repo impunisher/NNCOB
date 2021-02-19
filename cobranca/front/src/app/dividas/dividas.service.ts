@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import {catchError, map} from "rxjs/operators";
@@ -21,7 +21,12 @@ export class DividasService {
     return this.http.post(`${this.uri}/importar-dados`, formData);
   }
 
-  buscarDividas(): Observable<any> {
-    return this.http.get(this.uri);
+  buscarDividas(parans:any): Observable<any> {
+    let headers = new HttpHeaders();
+    const params = new HttpParams()
+      .append('page', '1')
+      .append('size','50')
+      .append('sort','nome,asc');
+    return this.http.get(this.uri, {headers,params});
   }
 }
